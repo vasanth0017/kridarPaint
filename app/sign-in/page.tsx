@@ -61,8 +61,8 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <Card className="w-full max-w-md p-6 shadow-lg rounded-xl bg-white">
+    <div className="flex min-h-screen items-center justify-center ">
+      <Card className="w-full max-w-md p-6  shadow-lg rounded-xl bg-background">
         <CardHeader>
           <h2 className="text-2xl font-semibold text-center">Sign In</h2>
         </CardHeader>

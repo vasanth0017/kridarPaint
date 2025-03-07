@@ -25,6 +25,7 @@ import {
   Code,
   ChartNoAxesGantt,
   Split,
+  LogIn,
 } from "lucide-react";
 import { ModeToggle } from "@/components/theme/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -122,46 +123,66 @@ export function Navigation({ session }: { session: any }) {
           <ModeToggle />
 
           {/* Profile Dropdown */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="" alt="Profile" />
-                  <AvatarFallback>{userName}</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>
-                <div className="flex items-center space-x-2">
-                  <Avatar className="h-10 w-10">
-                    <AvatarImage src="" alt="Profile" />
-                    <AvatarFallback>{userName}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-sm font-medium">{user?.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {user?.email}
-                    </p>
-                  </div>
-                </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive focus:text-destructive">
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Logout</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {user ? (
+            <>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="rounded-full">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src="" alt="Profile" />
+                      <AvatarFallback>{userName || "HI"}</AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>
+                    <div className="flex items-center space-x-2">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage src="" alt="Profile" />
+                        <AvatarFallback>{userName}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="text-sm font-medium">{user?.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {user?.email}
+                        </p>
+                      </div>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => {
+                      signOut();
+                      router.push("/sign-in");
+                    }}
+                    className="text-destructive focus:text-destructive"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    <span>Logout</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                router.push("/sign-in");
+              }}
+            >
+              <LogIn className="h-5 w-5" />
+            </Button>
+          )}
 
           {/* Mobile Menu Trigger */}
           <Sheet>
@@ -189,25 +210,46 @@ export function Navigation({ session }: { session: any }) {
                   </Link>
                 ))}
                 <DropdownMenuSeparator />
-                <Link href="/profile" className="flex items-center space-x-2">
-                  <User className="h-4 w-4 mr-2" />
-                  Profile
-                </Link>
-                <Link href="/settings" className="flex items-center space-x-2">
-                  <Settings className="h-4 w-4 mr-2" />
-                  Settings
-                </Link>
-                <Link
-                  href="#"
-                  onClick={() => {
-                    signOut();
-                    router.push("/sign-in");
-                  }}
-                  className="flex items-center space-x-2 text-destructive"
-                >
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Logout
-                </Link>
+                {user ? (
+                  <>
+                    {" "}
+                    <Link
+                      href="/profile"
+                      className="flex items-center space-x-2"
+                    >
+                      <User className="h-4 w-4 mr-2" />
+                      Profile
+                    </Link>
+                    <Link
+                      href="/settings"
+                      className="flex items-center space-x-2"
+                    >
+                      <Settings className="h-4 w-4 mr-2" />
+                      Settings
+                    </Link>
+                    <Link
+                      href="#"
+                      onClick={() => {
+                        signOut();
+                        router.push("/sign-in");
+                      }}
+                      className="flex items-center space-x-2 text-destructive"
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Logout
+                    </Link>
+                  </>
+                ) : (
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => {
+                      router.push("/sign-in");
+                    }}
+                  >
+                    <LogIn className="h-5 w-5" />
+                  </Button>
+                )}
               </div>
             </SheetContent>
           </Sheet>
