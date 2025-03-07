@@ -48,7 +48,7 @@ export function Navigation({ session }: { session: any }) {
   const name = user?.name;
   const userName = name?.substring(0, 2).toUpperCase();
   const router = useRouter();
-
+  console.log("user",user)
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);

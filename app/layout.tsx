@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
-import { Navigation } from "@/components/panel/header";
-import { Footer } from "@/components/panel/footer";
 import { getServerSession } from "next-auth";
 import authOptions from "@/pages/api/auth/[...nextauth]";
+import { Toaster } from "sonner";
 
 const satoshiFont = localFont({
   src: [
@@ -43,13 +42,8 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="min-h-screen flex flex-col">
-            <Navigation session={session} />
-            <main className="flex-grow pt-20 py-8  px-4 md:px-8 lg:px-16">
-              {children}
-            </main>
-            <Footer />
-          </div>
+          {children}
+          <Toaster position="bottom-left" />
         </ThemeProvider>
       </body>
     </html>

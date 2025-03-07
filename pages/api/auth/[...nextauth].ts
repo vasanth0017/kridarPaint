@@ -56,46 +56,24 @@ const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      return true;
+    },
     async jwt({ token, user, account, profile }: any) {
-      // If it's a new sign in, add additional information
-      if (account && profile) {
-        try {
-          // Try to find or create user
-          let db_user = await db.user.findUnique({
-            where: { email: profile.email },
-          });
-
-          if (!db_user) {
-            db_user = await db.user.create({
-              data: {
-                email: profile.email as string,
-              },
-            });
-          }
-
-          // Update token with user information
-          token.id = db_user.id;
-          token.name = db_user.name;
-          token.picture = db_user.image;
-          if (user) {
-            token.id = user.id;
-            token.role = user.role; // Store role in the token
-          }
-          return token;
-        } catch (error) {
-          console.error("Error in JWT callback:", error);
-        }
-      }
-
-      return token;
+      console.log("gooduser",user)
+      console.log("useruseruser",token)
+      if (user) {
+				token.id = user.id;
+				token.role = user.role; 
+			}
+			return token;
     },
     async session({ session, token }: any) {
+      console.log("formsession token",token)
+      console.log("session",session)
       if (token) {
-        session.user.id = token.id as string;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
-        session.user.role = token.role;
+        session.user.id = token.id;
+				session.user.role = token.role; 
       }
       return session;
     },
@@ -109,10 +87,10 @@ const authOptions: AuthOptions = {
   },
   events: {
     async signIn(message) {
-      console.log("Sign in successful", message);
+      // console.log("Sign in successful", message);
     },
     async session(message) {
-      console.log("Session created", message);
+      // console.log("Session created", message);
     },
   },
   secret: process.env.NEXTAUTH_SECRET,

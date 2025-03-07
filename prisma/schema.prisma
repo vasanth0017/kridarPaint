@@ -78,3 +78,9 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+model QRCode {
+   id       String    @id @default(cuid())  @map("_id")
+   code      String   @unique 
+   used      Boolean  @default(false) 
+   createdAt DateTime @default(now()) 
+}
