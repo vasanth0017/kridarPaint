@@ -48,7 +48,7 @@ export function Navigation({ session }: { session: any }) {
   const name = user?.name;
   const userName = name?.substring(0, 2).toUpperCase();
   const router = useRouter();
-  console.log("user",user)
+  console.log("user", user);
   React.useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
@@ -158,6 +158,20 @@ export function Navigation({ session }: { session: any }) {
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Settings</span>
                   </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  {user?.email === "eswarvasanth17@gmail.com" ? (
+                    <DropdownMenuItem
+                      onClick={() => {
+                        router.push("/dashboard");
+                      }}
+                    >
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Admin Page</span>
+                    </DropdownMenuItem>
+                  ) : (
+                    ""
+                  )}
+
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     onClick={() => {
