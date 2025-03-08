@@ -4,6 +4,5 @@ import  authOptions from '@/pages/api/auth/[...nextauth]'
 
 export default async function OurProducts() {
   const session = await getServerSession(authOptions)
-  console.log("session",session)
   return <ProductCatalog />;
 }

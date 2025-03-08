@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { getServerSession } from "next-auth";
-import authOptions from "@/pages/api/auth/[...nextauth]";
+import {authOptions} from "@/pages/api/auth/[...nextauth]";
 import { Toaster } from "sonner";
 
 const satoshiFont = localFont({

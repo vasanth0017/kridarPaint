@@ -1,18 +1,22 @@
-import NextAuth, { AuthOptions, getServerSession } from "next-auth";
+import NextAuth, {
+  AuthOptions,
+  getServerSession,
+  SessionStrategy,
+} from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import db from "@/prisma/db";
 import GoogleProvider from "next-auth/providers/google";
 import { getGoogleCredentials } from "@/lib/utils";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
-const authOptions: AuthOptions = {
+export const authOptions = {
   pages: {
     signIn: "/signIn",
 
     error: "/signin",
   },
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as SessionStrategy,
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   adapter: PrismaAdapter(db),
@@ -56,28 +60,31 @@ const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      return true;
-    },
-    async jwt({ token, user, account, profile }: any) {
-      console.log("gooduser",user)
-      console.log("useruseruser",token)
+    async jwt({ token, user, session, account, profile }: any) {
+      console.log("gooduser", user);
+      console.log("useruseruser", token);
+      console.log("tokensession", session);
       if (user) {
-				token.id = user.id;
-				token.role = user.role; 
-			}
-			return token;
+        return {
+          ...token,
+          id: user.id,
+          role: user.role,
+        };
+      }
+      return token;
     },
     async session({ session, token }: any) {
-      console.log("formsession token",token)
-      console.log("session",session)
+      console.log("formsession token", token);
+     
       if (token) {
         session.user.id = token.id;
-				session.user.role = token.role; 
+        session.user.role = token.role;
       }
+      console.log("session", session);
       return session;
+     
     },
-    async redirect({ url, baseUrl }) {
+    async redirect({ url, baseUrl }:any) {
       // Allows relative callback URLs
       if (url.startsWith("/")) return `${baseUrl}${url}`;
       // Allows callback URLs on the same origin
@@ -85,17 +92,19 @@ const authOptions: AuthOptions = {
       return baseUrl;
     },
   },
-  events: {
-    async signIn(message) {
-      // console.log("Sign in successful", message);
-    },
-    async session(message) {
-      // console.log("Session created", message);
-    },
-  },
+  // events: {
+  //   async signIn(message) {
+  //     // console.log("Sign in successful", message);
+  //   },
+  //   async session(message) {
+  //     // console.log("Session created", message);
+  //   },
+  // },
   secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NEXT_PUBLIC_ENV === "development",
 };
 
 export default NextAuth(authOptions);
-export const getAuthSession = () => getServerSession(authOptions);
+export const getAuthSession = () => {
+  return getServerSession(authOptions);
+};

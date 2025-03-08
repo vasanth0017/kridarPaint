@@ -11,7 +11,6 @@ const ProductCatalog = () => {
   const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  console.log("isLoading", isLoading);
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {

@@ -13,7 +13,6 @@ import {
 import { SidebarInset } from "@/components/ui/sidebar";
 export default async function Page({ children }: { children: ReactNode }) {
   const session = await getServerSession(authOptions);
-  console.log("session", session);
   return (
     <SidebarInset>
       <Header>
