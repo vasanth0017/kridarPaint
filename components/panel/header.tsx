@@ -26,6 +26,9 @@ import {
   ChartNoAxesGantt,
   Split,
   LogIn,
+  LayoutDashboard,
+  ShieldUser,
+  Target,
 } from "lucide-react";
 import { ModeToggle } from "@/components/theme/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -35,7 +38,7 @@ import { signOut } from "next-auth/react";
 const navigationItems = [
   { name: "Home", href: "/", icon: Home },
   { name: "About", href: "/test", icon: User },
-  { name: "Our Products", href: "/our-products", icon: Code },
+  { name: "Our Products", href: "/our-products", icon: Target },
   { name: "Services", href: "/hello", icon: Code },
   { name: "Contact", href: "/dghj", icon: Bell },
 ];
@@ -154,7 +157,7 @@ export function Navigation({ session }: { session: any }) {
                       router.push("/dashboard");
                     }}
                   >
-                    <User className="mr-2 h-4 w-4" />
+                    <LayoutDashboard className="mr-2 h-4 w-4" />
                     <span>Dashboard</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
@@ -172,7 +175,7 @@ export function Navigation({ session }: { session: any }) {
                         router.push("/dashboard");
                       }}
                     >
-                      <Settings className="mr-2 h-4 w-4" />
+                      <ShieldUser className="mr-2 h-4 w-4" />
                       <span>Admin Page</span>
                     </DropdownMenuItem>
                   ) : (
@@ -201,6 +204,7 @@ export function Navigation({ session }: { session: any }) {
                 router.push("/sign-in");
               }}
             >
+              login
               <LogIn className="h-5 w-5" />
             </Button>
           )}
@@ -214,7 +218,7 @@ export function Navigation({ session }: { session: any }) {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <div className="flex flex-col space-y-4 mt-8">
+              <div className="flex flex-col px-3 space-y-4 mt-8">
                 {navigationItems.map((item) => (
                   <Link
                     key={item.href}
@@ -234,6 +238,13 @@ export function Navigation({ session }: { session: any }) {
                 {user ? (
                   <>
                     {" "}
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center space-x-2"
+                    >
+                      <LayoutDashboard className="h-4 w-4 mr-2" />
+                      Dashboard
+                    </Link>
                     <Link
                       href="/profile"
                       className="flex items-center space-x-2"

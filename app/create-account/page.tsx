@@ -11,10 +11,11 @@ export default async function page() {
         where: { id: session?.user?.id },
       })
     : null;
-  const number = user?.phoneNumber
-  // if(number?.length !== 0){
-  //   return redirect("/")
-  // }
+  const number = user?.phoneNumber;
+  if (number && number.length > 0) {
+    return redirect("/");
+  }
+
   return (
     <>
       <ProfilePage session={session} />
