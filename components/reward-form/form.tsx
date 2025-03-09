@@ -73,7 +73,7 @@ export default function BasicForm({ number, name, email, id }: any) {
 
     try {
       setIsSubmitting(true);
-      // await updateQr(code);
+      await updateQr(code);
       await redeemForm({
         userId: id,
         name: formData.name,
