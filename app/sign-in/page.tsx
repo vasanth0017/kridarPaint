@@ -48,7 +48,7 @@ export default function Login() {
     }
 
     await signIn(provider, {
-      callbackUrl: "/",
+      callbackUrl: "/create-account",
       redirect: true,
     }).then((callback) => {
       if (callback?.error) {

@@ -46,7 +46,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method Not Allowed" });
   }
-  console.log("req",req)
+
   try {
     // Run the middleware (✅ Fixed)
     await runMiddleware(req, res);

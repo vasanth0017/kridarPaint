@@ -7,7 +7,7 @@ const handler = async(req:any, res:any) => {
 
   const { code } = req.query;
 
-  // Store in database
+
   try {
     const messages = await db.qRCode.findMany({
       where: { code: code },

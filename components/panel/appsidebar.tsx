@@ -27,7 +27,7 @@ export function AppSidebar({session,  ...props }:{session:any} & React.Component
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={session?.user || data.user} />
+        <NavUser user={session || data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

@@ -1,17 +1,32 @@
 import Admin from "@/components/dashboard/admin";
 import { getServerSession } from "next-auth";
-import authOptions from "@/pages/api/auth/[...nextauth]";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { getAccountDetails } from "@/services/apicall";
+import PainterDash from "@/components/painter-dashboard/page";
+import PlaceholderContent from "@/components/demo/placeholder-content";
 
 export default async function page() {
-  const session = await getServerSession(authOptions);
-  //   if (session !== "admin") {
-  //     return (
-  //       <div className="flex items-center justify-center">
-  //         <h1 className="flex items-center justify-center text-4xl w-full h-full">
-  //           This page access only for Management Team
-  //         </h1>
-  //       </div>
-  //     );
-  //   }
-  return <Admin />;
+  const session: any = await getServerSession(authOptions);
+  const user = session?.user;
+  const userId = user?.id;
+  let userDetails: any = null;
+  try {
+    if (userId) {
+      const response = await getAccountDetails(userId);
+      userDetails = response?.[0] || null;
+    }
+  } catch (error) {
+    console.error("Error during fetching contract details:", error);
+  }
+  return (
+    <>
+      {userDetails?.role === "Painter" ? (
+        <PainterDash userDetails={userDetails} />
+      ) : userDetails?.role === "admin" ? (
+        <Admin />
+      ) : (
+        <PlaceholderContent />
+      )}
+    </>
+  );
 }

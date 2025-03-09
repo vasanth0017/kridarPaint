@@ -78,10 +78,64 @@ export const generateQr = async () => {
 };
 //update call
 export const updateQr = async (code: string) => {
-  console.log("code", code);
   return await Fetch.updateJSON("/qr-code/updatecode", { code });
 };
 //get qr
 export const getQr = async (code: any) => {
   return await Fetch.getJSON(`/qr-code/getcode?code=${code}`);
+};
+//get user
+export const getAccountDetails = async (id: any) => {
+
+  return await Fetch.getJSON(`/user-accounts/get-user?id=${id}`);
+};
+//update-account
+export const UpdateAccountDetails = async ({
+  id,
+  email,
+  name,
+  phoneNumber,
+  address,
+  state,
+  district,
+  pincode,
+  role,
+}: any) => {
+  return await Fetch.updateJSON("/user-accounts/update-user", {
+    id,
+    email,
+    name,
+    phoneNumber,
+    address,
+    state,
+    district,
+    pincode,
+    role,
+  });
+};
+
+//redeem-form
+export const redeemForm = async ({
+  userId,
+  name,
+  phoneNumber,
+  amount,
+}: any) => {
+  return await Fetch.postJSON("/redeem/redeem-form", {
+    userId,
+    name,
+    phoneNumber,
+    amount,
+  });
+};
+
+//get-all redeem
+export const getAllredeem = async () => {
+  return await Fetch.getJSON("/redeem/get-redeem");
+};
+//clear amount sended redeem
+export const deleteRedeem = async (id: any) => {
+  return await Fetch.deleteJSON("/redeem/clear-redeem", {
+    id,
+  });
 };

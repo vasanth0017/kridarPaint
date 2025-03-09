@@ -2,17 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { getQr, updateQr } from "@/services/apicall";
-import { Loader } from "lucide-react";
+import { getQr, redeemForm, updateQr } from "@/services/apicall";
+import { Loader, Sparkles } from "lucide-react";
 import { toast, Toaster } from "sonner";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-export default function BasicForm() {
+export default function BasicForm({ number, name, email, id }: any) {
   // State to manage form inputs
   const searchParams = useSearchParams();
   const code = searchParams?.get("code") || "";
+  const amount = 50;
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -24,8 +25,9 @@ export default function BasicForm() {
 
   const [data, setData] = useState<DataType>({});
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: name || "",
+    email: email || "",
+    phoneNumber: number || "",
   });
 
   useEffect(() => {
@@ -71,13 +73,20 @@ export default function BasicForm() {
 
     try {
       setIsSubmitting(true);
-      await updateQr(code);
+      // await updateQr(code);
+      await redeemForm({
+        userId: id,
+        name: formData.name,
+        phoneNumber: formData?.phoneNumber,
+        amount,
+      });
       toast.success("Form submitted successfully!");
       // Reset form after successful submission
-      setFormData({
-        name: "",
-        email: "",
-      });
+      // setFormData({
+      //   name: "",
+      //   email: "",
+      //   phoneNumber:""
+      // });
     } catch (error) {
       console.error("Submission error:", error);
       toast.error("Failed to submit form");
@@ -125,12 +134,13 @@ export default function BasicForm() {
 
   return (
     <div className="max-w-md mx-auto p-4 md:p-6 my-8 bg-white rounded-xl shadow-lg">
-      <Toaster position="top-center" richColors />
-
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+      <h2 className="text-2xl font-bold text-center mb-3 text-gray-800">
         Claim Your Reward
       </h2>
-
+      <h3 className="mb-6 text-center">
+        {" "}
+       {amount}{" "}rupees
+      </h3>
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <Label
@@ -144,6 +154,7 @@ export default function BasicForm() {
             id="name"
             name="name"
             value={formData.name}
+            readOnly
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
             placeholder="Enter your full name"
@@ -162,6 +173,26 @@ export default function BasicForm() {
             id="email"
             name="email"
             value={formData.email}
+            readOnly
+            onChange={handleChange}
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+            placeholder="Enter your email address"
+          />
+        </div>
+
+        <div>
+          <Label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            PhoneNumber
+          </Label>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.phoneNumber}
+            readOnly
             onChange={handleChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
             placeholder="Enter your email address"

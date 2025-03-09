@@ -10,9 +10,9 @@ import {
   Settings2,
   SquareTerminal,
 } from "lucide-react";
-import { title } from "process";
 
-export  function sidebarData  (session: any) {
+
+export function sidebarData(session: any) {
   return {
     user: {
       name: "Morgan",
@@ -21,82 +21,56 @@ export  function sidebarData  (session: any) {
     },
     teams: [
       {
-        title:"Kridar Paints",
-        subName:"Eco-Friendly"
+        title: "Kridar Paints",
+        subName: "Eco-Friendly",
       },
     ],
     navMain: [
       {
         title: "Dashboard",
-        url: "dashboard",
+        url: "/dashboard",
         icon: SquareTerminal,
         isActive: true,
-        // items: [
-        //   {
-        //     title: "History",
-        //     url: "#",
-        //   },
-        //   {
-        //     title: "Starred",
-        //     url: "#",
-        //   },
-        //   {
-        //     title: "Settings",
-        //     url: "#",
-        //   },
-        // ],
       },
-      {
-        title: "Create Products",
-        url: "/create-product",
-        icon: Bot,
-        // items: [
-        //   {
-        //     title: "Genesis",
-        //     url: "#",
-        //   },
-        //   {
-        //     title: "Explorer",
-        //     url: "#",
-        //   },
-        //   {
-        //     title: "Quantum",
-        //     url: "#",
-        //   },
-        // ],
-      },
-      // {
-      //   title: "Service Listing",
-      //   url: "/service-listing",
-      //   icon: BookOpen,
-      //   ...(session?.user?.role === "freelancer" && {
-      //     items: [
-      //       {
-      //         title: "All Services",
-      //         url: "/service-listing",
-      //       },
-      //       {
-      //         title: "My Services",
-      //         url: "/my-services",
-      //       },
-      //     ],
-      //   }),
-      // },
-      {
-        title: "Qr Generate",
-        url: "#",
-        icon: BookOpen,
-        items: [
-          {
-            title: "Generate",
-            url: "/qr-generate",
-          },
-          {
-            title: "Manage QrCodes",
-            url: "#",
-          },
-        ],
-      },
+      ...(session?.role === "admin"
+        ? [
+            {
+              title: "Create Products",
+              url: "/create-product",
+              icon: Bot,
+            },
+            {
+              title: "Qr Generate",
+              url: "#",
+              icon: BookOpen,
+              items: [
+                {
+                  title: "Generate",
+                  url: "/qr-generate",
+                },
+                {
+                  title: "Manage QrCodes",
+                  url: "#",
+                },
+              ],
+            },
+            {
+              title: "Redeem",
+              url: "#",
+              icon: Settings2,
+              items: [
+                {
+                  title: "Pending Redeem",
+                  url: "/pending-reward",
+                },
+                {
+                  title: "Total Redeem",
+                  url: "#",
+                },
+              ],
+            },
+          ]
+        : []), // If not admin, it will return an empty array (hides items)
       {
         title: "Settings",
         url: "#",
@@ -111,7 +85,7 @@ export  function sidebarData  (session: any) {
             url: "#",
           },
           {
-            title: "Billing", 
+            title: "Billing",
             url: "#",
           },
           {
@@ -138,5 +112,5 @@ export  function sidebarData  (session: any) {
         icon: Map,
       },
     ],
-  }
+  };
 }

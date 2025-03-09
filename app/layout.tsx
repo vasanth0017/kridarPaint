@@ -43,7 +43,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          <Toaster position="bottom-left" />
+          <Toaster position="bottom-right" closeButton swipeDirections={['bottom']} />
         </ThemeProvider>
       </body>
     </html>
