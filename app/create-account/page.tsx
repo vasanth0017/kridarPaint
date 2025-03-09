@@ -12,9 +12,9 @@ export default async function page() {
       })
     : null;
   const number = user?.phoneNumber
-  if(number?.length !== 0){
-    return redirect("/")
-  }
+  // if(number?.length !== 0){
+  //   return redirect("/")
+  // }
   return (
     <>
       <ProfilePage session={session} />
