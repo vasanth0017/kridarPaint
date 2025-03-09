@@ -14,6 +14,6 @@ const handler = async (req: any, res: any) => {
 
   res
     .status(200)
-    .json({ qrCode, url: `${qrUrl}/reward-form?code=${uniqueId}` });
+    .json({ qrCode, url: `${qrUrl}/redeem?code=${uniqueId}` });
 };
 export default handler;
