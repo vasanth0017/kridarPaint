@@ -5,6 +5,7 @@ import {
   Command,
   Frame,
   GalleryVerticalEnd,
+  Home,
   Map,
   PieChart,
   Settings2,
@@ -26,6 +27,12 @@ export function sidebarData(session: any) {
       },
     ],
     navMain: [
+      {
+        title: "Home",
+        url: "/",
+        icon: Home,
+        isActive: true,
+      },
       {
         title: "Dashboard",
         url: "/dashboard",

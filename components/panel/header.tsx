@@ -34,6 +34,7 @@ import { ModeToggle } from "@/components/theme/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import { signOut } from "next-auth/react";
+import LuxuryCoin from "../amount/display";
 
 const navigationItems = [
   { name: "Home", href: "/", icon: Home },
@@ -43,7 +44,15 @@ const navigationItems = [
   { name: "Contact", href: "/dghj", icon: Bell },
 ];
 
-export function Navigation({ session }: { session: any }) {
+export function Navigation({
+  session,
+  amount,
+  role,
+}: {
+  session: any;
+  amount: any;
+  role: any;
+}) {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   const pathname = usePathname();
@@ -101,8 +110,11 @@ export function Navigation({ session }: { session: any }) {
 
         {/* Right Section - Search, Actions, Profile */}
         <div className="flex items-center space-x-2 md:space-x-4 lg:space-x-6">
+          {/* {coins} */}
+          {role === "Painter" && <LuxuryCoin amount={amount} />}
+
           {/* Search */}
-          <div className="relative">
+          {/* <div className="relative">
             {isSearchOpen ? (
               <Input
                 type="text"
@@ -119,7 +131,7 @@ export function Navigation({ session }: { session: any }) {
                 <Search className="h-5 w-5" />
               </Button>
             )}
-          </div>
+          </div> */}
 
           {/* Theme Toggle */}
           <ModeToggle />

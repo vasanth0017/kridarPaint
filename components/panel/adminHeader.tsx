@@ -1,8 +1,9 @@
-"use client"
+"use client";
 import React from "react";
 import { SidebarTrigger } from "../ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "@/components/theme/theme-toggle";
+import LuxuryCoin from "../amount/display";
 
 interface HeaderProps {
   children?: React.ReactNode; // Allow dynamic content (like breadcrumbs)
