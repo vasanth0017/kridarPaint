@@ -73,8 +73,8 @@ export const registerNewuser = async ({
 };
 
 //generate qr code
-export const generateQr = async () => {
-  return await Fetch.postJSON("/qr-code/generate-code");
+export const generateQr = async (prod_code:any) => {
+  return await Fetch.postJSON("/qr-code/generate-code", {prod_code});
 };
 //update call
 export const updateQr = async (code: string) => {
