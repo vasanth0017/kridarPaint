@@ -3,8 +3,9 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { getServerSession } from "next-auth";
-import {authOptions} from "@/pages/api/auth/[...nextauth]";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { Toaster } from "sonner";
+import { UserProvider } from "@/context/painter-context";
 
 const satoshiFont = localFont({
   src: [
@@ -42,8 +43,13 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster position="bottom-right" closeButton swipeDirections={['bottom']} />
+          <UserProvider>{children}</UserProvider>
+
+          <Toaster
+            position="bottom-right"
+            closeButton
+            swipeDirections={["bottom"]}
+          />
         </ThemeProvider>
       </body>
     </html>

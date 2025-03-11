@@ -7,6 +7,7 @@ import {
   GalleryVerticalEnd,
   Home,
   Map,
+  NotebookTabs,
   PieChart,
   Settings2,
   SquareTerminal,
@@ -62,6 +63,11 @@ export function sidebarData(session: any) {
               ],
             },
             {
+              title: "painters",
+              url: "/painter-details",
+              icon: NotebookTabs,
+            },
+            {
               title: "Redeem",
               url: "#",
               icon: Settings2,
@@ -77,7 +83,7 @@ export function sidebarData(session: any) {
               ],
             },
           ]
-        : []), // If not admin, it will return an empty array (hides items)
+        : []),
       {
         title: "Settings",
         url: "#",

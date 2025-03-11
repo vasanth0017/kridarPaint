@@ -139,3 +139,8 @@ export const deleteRedeem = async (id: any) => {
     id,
   });
 };
+
+//get-painters data
+export const getAllusers = async () => {
+  return await Fetch.getJSON("/painter-details/details");
+};

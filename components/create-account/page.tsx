@@ -99,19 +99,18 @@ export default function ProfilePage({ session }: { session: any }) {
   // Handle form submission
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-
+  
     // Validate form
     if (
       !formData?.name ||
       !formData?.email ||
       !formData?.phone ||
-      // !formData.address ||
       !formData?.pincode
     ) {
       setMessage("Please fill all required fields");
       return;
     }
-
+  
     try {
       await UpdateAccountDetails({
         id,
@@ -124,24 +123,19 @@ export default function ProfilePage({ session }: { session: any }) {
         pincode: formData?.pincode,
         role: formData?.role,
       });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      router.push("/");
+  
+      setMessage("Profile updated successfully!");
+      router.push("/"); 
+    } catch (error: any) {
+      if (error.status === 404) {
+        toast.error("Number already taken");
+      } else {
+        console.error(error);
+        toast.error("Something went wrong!");
+      }
     }
-    setMessage("Profile updated successfully!");
-
-    // Reset form after successful submission (optional)
-    // setFormData({
-    //   name: '',
-    //   email: '',
-    //   phone: '',
-    //   address: '',
-    //   pincode: '',
-    //   district: '',
-    //   state: '',
-    // });
   };
+  
 
   return (
     <>

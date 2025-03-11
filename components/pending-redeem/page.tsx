@@ -1,22 +1,39 @@
 "use client";
 
 import { deleteRedeem } from "@/services/apicall";
-import { Delete, Phone } from "lucide-react";
+import { Delete, Loader, Phone } from "lucide-react";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 
 export default function PendingRedeems({ userDetails }: { userDetails: any }) {
   const [users, setUsers] = useState(userDetails || []);
+  const [isLoading, setIsLoading] = useState(false);
   const handleDelete = async (id: string) => {
     try {
+      setIsLoading(true);
       await deleteRedeem(id);
       setUsers(users.filter((user: any) => user.id !== id));
-      toast.message("data cleared successfully")
+      toast.message("data cleared successfully");
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
+    setIsLoading(false);
   };
+  // Function to group users by phone number and sum their amounts
+  const groupedUsers = users.reduce((acc: any, user: any) => {
+    const existingUser = acc.find(
+      (item: any) => item.phonenumber === user.phonenumber
+    );
+
+    if (existingUser) {
+      existingUser.amount += user.amount || 0;
+    } else {
+      acc.push({ ...user });
+    }
+
+    return acc;
+  }, []);
 
   if (!users.length) {
     return (
@@ -34,7 +51,7 @@ export default function PendingRedeems({ userDetails }: { userDetails: any }) {
       <h1 className="mb-6 text-2xl font-bold text-gray-800">Pending Redeems</h1>
 
       <div className="space-y-4">
-        {users.map((user: any) => (
+        {groupedUsers?.map((user: any) => (
           <div
             key={user.id}
             className="bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-lg"
@@ -53,7 +70,7 @@ export default function PendingRedeems({ userDetails }: { userDetails: any }) {
                         {user.name}
                       </h3>
                       <div className="flex flex-wrap items-center text-sm text-gray-600">
-                        <Phone className="w-6 p-1 "/>
+                        <Phone className="w-6 p-1 " />
                         <span>{user.phonenumber}</span>
                       </div>
                     </div>
@@ -70,10 +87,10 @@ export default function PendingRedeems({ userDetails }: { userDetails: any }) {
                   <Button
                     onClick={() => handleDelete(user?.id)}
                     variant="destructive"
-                    className="p-2"
+                    className="p-2 cursor-pointer"
                     aria-label="Delete redeem request"
                   >
-                   <Delete />
+                    {isLoading ? <Loader /> : "Sended"}
                   </Button>
                 </div>
               </div>

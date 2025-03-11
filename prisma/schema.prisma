@@ -35,7 +35,7 @@ model User {
   role             String?       @default("user")
   resetToken       String?
   resetTokenExpiry DateTime?
-  phoneNumber      String?
+  phoneNumber      String?       @unique
   address          String?
   pincode          String?
   district         String?
