@@ -8,7 +8,6 @@ const UserContext = createContext<any[]>([]);
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<any[]>([]);
-    console.log("context",user)
   useEffect(() => {
     const fetchUser = async () => {
       const userData:any = await getAllusers(); 
