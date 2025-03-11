@@ -17,7 +17,8 @@ const handler = async (req: any, res: any) => {
     const existingNumber = await db.user.findMany({
       where: { phoneNumber: phoneNumber },
     });
-    if (existingNumber) {
+    console.log("existingNumber",existingNumber)
+    if (existingNumber.length > 0) { 
       return res.status(404).json({ message: "Number Already Given" });
     }
     const existingEntry = await db.user.findFirst({

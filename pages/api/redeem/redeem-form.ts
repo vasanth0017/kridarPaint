@@ -11,14 +11,13 @@ const handler = async (req: any, res: any) => {
   }
 
   try {
-    // Check if the number is already in the database
+    // Check if the number is already
     const existingRedeem = await db.redeem.findFirst({
       where: { phonenumber: phoneNumber },
     });
 
     let redeem;
     if (existingRedeem) {
-      // Update existing record by adding new amount
       redeem = await db.redeem.update({
         where: { id: existingRedeem.id },
         data: {
@@ -26,7 +25,6 @@ const handler = async (req: any, res: any) => {
         },
       });
     } else {
-      // Create new record if it doesn't exist
       redeem = await db.redeem.create({
         data: {
           name: name,
@@ -37,7 +35,7 @@ const handler = async (req: any, res: any) => {
       });
     }
 
-    // Handle total_redeem separately
+    // Handle total_redeem 
     const totalRedeem = await db.totalreedem.findFirst({
       where: { userId: userId },
     });
