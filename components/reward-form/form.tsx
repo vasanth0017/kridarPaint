@@ -99,7 +99,7 @@ export default function BasicForm({ number, name, email, id }: any) {
   if (code.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] md:min-h-[65vh] p-6">
-        <div className="bg-red-50 p-6 rounded-xl shadow-md max-w-md w-full text-center">
+        <div className="p-6 rounded-xl shadow-md max-w-md w-full text-center">
           <h1 className="text-xl md:text-2xl font-bold text-red-500 mb-2">
             Use QR code to get reward
           </h1>
@@ -133,20 +133,14 @@ export default function BasicForm({ number, name, email, id }: any) {
   }
 
   return (
-    <div className="max-w-md mx-auto p-4 md:p-6 my-8 bg-white rounded-xl shadow-lg">
+    <div className="max-w-md mx-auto p-4 md:p-6 my-8  rounded-xl shadow-lg">
       <h2 className="text-2xl font-bold text-center mb-3 text-gray-800">
         Claim Your Reward
       </h2>
-      <h3 className="mb-6 text-center">
-        {" "}
-       {amount}{" "}rupees
-      </h3>
+      <h3 className="mb-6 text-center"> {amount} rupees</h3>
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <Label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <Label htmlFor="name" className="block text-sm font-medium mb-1">
             Name
           </Label>
           <Input
@@ -162,10 +156,7 @@ export default function BasicForm({ number, name, email, id }: any) {
         </div>
 
         <div>
-          <Label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <Label htmlFor="email" className="block text-sm font-medium  mb-1">
             Email
           </Label>
           <Input
@@ -175,16 +166,13 @@ export default function BasicForm({ number, name, email, id }: any) {
             value={formData.email}
             readOnly
             onChange={handleChange}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+            className="w-full px-4 py-3 border  rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
             placeholder="Enter your email address"
           />
         </div>
 
         <div>
-          <Label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <Label htmlFor="email" className="block text-sm font-medium mb-1">
             PhoneNumber
           </Label>
           <Input
@@ -202,7 +190,7 @@ export default function BasicForm({ number, name, email, id }: any) {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-blue-600 text-white font-medium py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:bg-blue-300 disabled:cursor-not-allowed"
+          className="w-full bg-blue-600 font-medium py-3 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 disabled:bg-blue-300 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center">
