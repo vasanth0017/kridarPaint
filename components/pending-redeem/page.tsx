@@ -8,17 +8,16 @@ import { toast } from "sonner";
 
 export default function PendingRedeems({ userDetails }: { userDetails: any }) {
   const [users, setUsers] = useState(userDetails || []);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadingId, setLoadingId] = useState<string | null>(null);
   const handleDelete = async (id: string) => {
+    setLoadingId(id);
     try {
-      setIsLoading(true);
       await deleteRedeem(id);
       setUsers(users.filter((user: any) => user.id !== id));
       toast.message("data cleared successfully");
     } catch (error) {
       console.error(error);
     }
-    setIsLoading(false);
   };
   // Function to group users by phone number and sum their amounts
   const groupedUsers = users.reduce((acc: any, user: any) => {
@@ -90,7 +89,7 @@ export default function PendingRedeems({ userDetails }: { userDetails: any }) {
                     className="p-2 cursor-pointer"
                     aria-label="Delete redeem request"
                   >
-                    {isLoading ? <Loader /> : "Sended"}
+                    {loadingId === user?.id ? <Loader /> : "Sended"}
                   </Button>
                 </div>
               </div>

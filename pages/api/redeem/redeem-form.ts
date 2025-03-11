@@ -1,35 +1,70 @@
 import db from "@/prisma/db";
-import { use } from "react";
 
 const handler = async (req: any, res: any) => {
   if (req.method !== "POST")
     return res.status(405).json({ message: "Method not allowed" });
+
   const { userId, name, phoneNumber, amount } = req.body;
 
-  if (!userId) {
-    return res.status(400).json({ message: "userId is missing" });
+  if (!userId || !phoneNumber) {
+    return res.status(400).json({ message: "userId or phoneNumber is missing" });
   }
+
   try {
-    // Store in database
-    const redeem = await db.redeem.create({
-      data: {
-        name: name,
-        phonenumber: phoneNumber,
-        userId: userId,
-        amount: Number(amount),
-      },
+    // Check if the number is already in the database
+    const existingRedeem = await db.redeem.findFirst({
+      where: { phonenumber: phoneNumber },
     });
 
-    const total_redeem = await db.totalreedem.create({
-      data: {
-        amount: Number(amount),
-        name: name,
-        userId: userId,
-      },
+    let redeem;
+    if (existingRedeem) {
+      // Update existing record by adding new amount
+      redeem = await db.redeem.update({
+        where: { id: existingRedeem.id },
+        data: {
+          amount: existingRedeem.amount + Number(amount),
+        },
+      });
+    } else {
+      // Create new record if it doesn't exist
+      redeem = await db.redeem.create({
+        data: {
+          name: name,
+          phonenumber: phoneNumber,
+          userId: userId,
+          amount: Number(amount),
+        },
+      });
+    }
+
+    // Handle total_redeem separately
+    const totalRedeem = await db.totalreedem.findFirst({
+      where: { userId: userId },
     });
-    res.status(200).json({ redeem, total_redeem });
+
+    let updatedTotalRedeem;
+    if (totalRedeem) {
+      updatedTotalRedeem = await db.totalreedem.update({
+        where: { id: totalRedeem.id },
+        data: {
+          amount: totalRedeem.amount + Number(amount),
+        },
+      });
+    } else {
+      updatedTotalRedeem = await db.totalreedem.create({
+        data: {
+          amount: Number(amount),
+          name: name,
+          userId: userId,
+        },
+      });
+    }
+
+    res.status(200).json({ redeem, updatedTotalRedeem });
   } catch (error) {
-    console.error(error);
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 export default handler;
