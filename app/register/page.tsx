@@ -40,7 +40,7 @@ export default function Register() {
       setLoading(false);
     }
 
-    router.push("/");
+    router.push("/create-account");
   };
 
   return (
@@ -99,7 +99,7 @@ export default function Register() {
           </div>
 
           {/* Role Selection */}
-          <div>
+          {/* <div>
             <Label htmlFor="role">Role</Label>
             <select
               id="role"
@@ -111,7 +111,7 @@ export default function Register() {
               <option value="freelancer">Freelancer</option>
               <option value="client">Client</option>
             </select>
-          </div>
+          </div> */}
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
           <Button type="submit" className="w-full">

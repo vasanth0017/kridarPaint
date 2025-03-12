@@ -109,7 +109,7 @@ export default function Details() {
                   <h3 className="text-sm font-medium text-gray-500">
                     Phone Number
                   </h3>
-                  <p className="text-lg">{selectedPainter?.phonenumber}</p>
+                  <p className="text-lg">{selectedPainter?.phoneNumber}</p>
                 </div>
 
                 <div>

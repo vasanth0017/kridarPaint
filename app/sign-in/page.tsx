@@ -32,7 +32,7 @@ export default function Login() {
 
       if (res?.error) throw new Error("Invalid credentials. Please try again.");
 
-      router.push("/our-products");
+      router.push("/");
     } catch (error) {
       setError(
         error instanceof Error ? error.message : "An unexpected error occurred."
