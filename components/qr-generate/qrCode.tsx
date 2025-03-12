@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { generateQr } from "@/services/apicall";
 import { Button } from "../ui/button";
@@ -12,6 +12,7 @@ export default function GenerateQR() {
   const [isLoading, setIsLoading] = useState(false);
   const [isGenerated, setIsGenerated] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
+  const qrRef = useRef<SVGSVGElement>(null);
 
   const handleGenerateQR = async () => {
     setIsLoading(true);
@@ -25,6 +26,36 @@ export default function GenerateQR() {
       setIsLoading(false);
     }
   };
+  const downloadQRCodeAsPNG = () => {
+    if (!qrRef.current) return;
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(qrRef.current);
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const img = new Image();
+    const svgBlob = new Blob([svgString], {
+      type: "image/svg+xml;charset=utf-8",
+    });
+
+    const url = URL.createObjectURL(svgBlob);
+
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx?.drawImage(img, 0, 0);
+      URL.revokeObjectURL(url);
+
+      const pngUrl = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = pngUrl;
+      link.download = "qrcode.png";
+      link.click();
+    };
+
+    img.src = url;
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
       <div className="w-full max-w-md p-6 bg-white rounded-xl shadow-lg border border-gray-100">
@@ -116,10 +147,17 @@ export default function GenerateQR() {
         {isGenerated && !isLoading && (
           <div className="flex flex-col items-center">
             <div className="p-6 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm">
-              <QRCodeSVG value={qrData || "https://example.com"} size={224} />
+              <QRCodeSVG
+                value={qrData || "https://example.com"}
+                size={224}
+                ref={qrRef}
+              />
             </div>
             <div className="w-full flex flex-col sm:flex-row justify-center gap-2">
-              <Button className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+              <Button
+                onClick={downloadQRCodeAsPNG}
+                className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+              >
                 Download QR Code
               </Button>
               <Button className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-colors">
