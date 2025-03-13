@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { createRoot } from "react-dom/client";
+import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { generateQr } from "@/services/apicall";
 import { Button } from "../ui/button";
