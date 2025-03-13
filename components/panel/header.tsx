@@ -194,14 +194,14 @@ export function Navigation({
 
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
+                    className="crusor-pointer"
                     onClick={() => {
-                      signOut();
+                      signOut({ callbackUrl: "/sign-in" });
                       router.push("/sign-in");
                     }}
-                    className="text-destructive focus:text-destructive"
                   >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Logout</span>
+                    <LogOut />
+                    Sign Out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
