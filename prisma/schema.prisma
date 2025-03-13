@@ -110,7 +110,7 @@ model totalreedem {
 model PurchasedProduct {
   id        String   @id @default(cuid()) @map("_id") 
   name      String
-  date      DateTime
+  date      String
   city      String
   count     Int
 }

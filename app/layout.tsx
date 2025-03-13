@@ -46,7 +46,7 @@ export default async function RootLayout({
           <UserProvider>{children}</UserProvider>
 
           <Toaster
-            position="bottom-right"
+            position="top-center"
             closeButton
             swipeDirections={["bottom"]}
           />
