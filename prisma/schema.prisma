@@ -106,3 +106,12 @@ model totalreedem {
   userId String
   user   User?  @relation("totalredeem", fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model PurchasedProduct {
+  id        String   @id @default(cuid()) @map("_id") 
+  name      String
+  date      DateTime
+  city      String
+  count     Int
+}
+

@@ -4,7 +4,7 @@ const handler = async (req: any, res: any) => {
   if (req.method !== "POST")
     return res.status(405).json({ message: "Method not allowed" });
 
-  const { userId, name, phoneNumber, amount } = req.body;
+  const { userId, name, phoneNumber, amount, prod_code, date, city, count } = req.body;
 
   if (!userId || !phoneNumber) {
     return res.status(400).json({ message: "userId or phoneNumber is missing" });
@@ -57,7 +57,33 @@ const handler = async (req: any, res: any) => {
         },
       });
     }
+    //store purchased item
+    const existingData = await db.purchasedProduct.findFirst({
+      where: { 
+        name: prod_code,
+        city:city,
+        date:date
+       },
+    });
 
+    let data;
+    if (existingData) {
+      data = await db.purchasedProduct.update({
+        where: { id: existingData.id },
+        data: {
+          count: existingData.count + Number(count),
+        },
+      });
+    } else {
+      data = await db.purchasedProduct.create({
+        data: {
+          name: prod_code,
+          date: date,
+          city: city,
+          count: Number(count),
+        },
+      });
+    }
     res.status(200).json({ redeem, updatedTotalRedeem });
   } catch (error) {
     console.error("Error:", error);

@@ -73,8 +73,8 @@ export const registerNewuser = async ({
 };
 
 //generate qr code
-export const generateQr = async (prod_code:any) => {
-  return await Fetch.postJSON("/qr-code/generate-code", {prod_code});
+export const generateQr = async (prod_code: any) => {
+  return await Fetch.postJSON("/qr-code/generate-code", { prod_code });
 };
 //update call
 export const updateQr = async (code: string) => {
@@ -86,7 +86,6 @@ export const getQr = async (code: any) => {
 };
 //get user
 export const getAccountDetails = async (id: any) => {
-
   return await Fetch.getJSON(`/user-accounts/get-user?id=${id}`);
 };
 //update-account
@@ -120,12 +119,20 @@ export const redeemForm = async ({
   name,
   phoneNumber,
   amount,
+  prod_code,
+  date,
+  city,
+  count,
 }: any) => {
   return await Fetch.postJSON("/redeem/redeem-form", {
     userId,
     name,
     phoneNumber,
     amount,
+    prod_code,
+    date,
+    city,
+    count,
   });
 };
 
@@ -143,4 +150,14 @@ export const deleteRedeem = async (id: any) => {
 //get-painters data
 export const getAllusers = async () => {
   return await Fetch.getJSON("/painter-details/details");
+};
+
+//purchased product
+export const purchasedProduct = async ({ name, date, city, count }: any) => {
+  return await Fetch.postJSON("/purchased-products/product", {
+    name,
+    date,
+    city,
+    count,
+  });
 };

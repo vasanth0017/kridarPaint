@@ -10,7 +10,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { AllProduct } from "@/lib/productlist";
 import LuxuryCoin from "../amount/display";
-export default function BasicForm({ number, name, email, id }: any) {
+export default function BasicForm({ number, name, email, id, city }: any) {
   // State to manage form inputs
   const searchParams = useSearchParams();
   const code = searchParams?.get("code") || "";
@@ -62,7 +62,7 @@ export default function BasicForm({ number, name, email, id }: any) {
       [name]: value,
     }));
   };
-
+  const currentDate = new Date().toISOString().split("T")[0];
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,6 +81,10 @@ export default function BasicForm({ number, name, email, id }: any) {
         name: formData?.name,
         phoneNumber: formData?.phoneNumber,
         amount: productData?.amount,
+        prod_code:productData?.name,
+        date:currentDate,
+        city,
+        count:1,
       });
       toast.success("Form submitted successfully!");
       // Reset form after successful submission

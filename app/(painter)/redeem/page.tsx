@@ -15,9 +15,10 @@ export default async function Page() {
   const number = user?.phoneNumber
   const name = user?.name
   const email = user?.email
+  const city = user?.district
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <BasicForm number={number} name={name} email={email} id={id} />
+      <BasicForm number={number} name={name} email={email} id={id} city={city}/>
     </Suspense>
   );
 }
