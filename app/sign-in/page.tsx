@@ -29,7 +29,7 @@ export default function Login() {
         email,
         password,
         redirect: true, 
-        callbackUrl: "/create-account",
+        callbackUrl: "/",
       });
 
       if (res?.error) throw new Error("Invalid credentials. Please try again.");
