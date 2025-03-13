@@ -28,7 +28,8 @@ export default function Login() {
       const res = await signIn("credentials", {
         email,
         password,
-        redirect: false,
+        redirect: true, 
+        callbackUrl: "/create-account",
       });
 
       if (res?.error) throw new Error("Invalid credentials. Please try again.");

@@ -57,9 +57,7 @@ export function Navigation({
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   const pathname = usePathname();
   const user = session?.user;
-  console.log("headeruser",user)
   const email = user?.email;
-  console.log("headeremail",email)
   const userName = email?.substring(0, 2).toUpperCase();
   const router = useRouter();
   React.useEffect(() => {
