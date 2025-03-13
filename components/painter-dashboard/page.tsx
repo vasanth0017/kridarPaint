@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import LuxuryCoin from '../amount/display';
 
 export default function PainterDash({ userDetails }: { userDetails: any }) {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -37,7 +38,7 @@ export default function PainterDash({ userDetails }: { userDetails: any }) {
                 <div className="flex justify-between items-start">
                   <div>
                     <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">Total Earnings</h2>
-                    <p className="text-4xl font-bold text-gray-800">${totalAmount.toLocaleString()}</p>
+                    <p className="text-4xl font-bold text-gray-800 w-fit"><LuxuryCoin amount={totalAmount}/></p>
                   </div>
                   <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +86,7 @@ export default function PainterDash({ userDetails }: { userDetails: any }) {
                 <div className="flex justify-between items-start">
                   <div>
                     <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-1">Pending Amount</h2>
-                    <p className="text-4xl font-bold text-gray-800">${pendingAmount.toLocaleString()}</p>
+                    <p className="text-4xl font-bold text-gray-800 w-fit"><LuxuryCoin amount={pendingAmount} /></p>
                   </div>
                   <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">

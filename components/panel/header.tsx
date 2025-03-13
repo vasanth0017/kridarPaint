@@ -57,8 +57,8 @@ export function Navigation({
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   const pathname = usePathname();
   const user = session?.user;
-  const name = user?.name;
-  const userName = name?.substring(0, 2).toUpperCase();
+  const email = user?.email;
+  const userName = email?.substring(0, 2).toUpperCase();
   const router = useRouter();
   React.useEffect(() => {
     const handleScroll = () => {
@@ -164,14 +164,12 @@ export function Navigation({
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    onClick={() => {
-                      router.push("/dashboard");
-                    }}
-                  >
-                    <LayoutDashboard className="mr-2 h-4 w-4" />
-                    <span>Dashboard</span>
-                  </DropdownMenuItem>
+                  <Link href="/dashboard">
+                    <DropdownMenuItem>
+                      <LayoutDashboard className="mr-2 h-4 w-4" />
+                      <span>Dashboard</span>
+                    </DropdownMenuItem>
+                  </Link>
                   <DropdownMenuItem>
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
@@ -211,7 +209,6 @@ export function Navigation({
           ) : (
             <Button
               variant="ghost"
-              size="icon"
               onClick={() => {
                 router.push("/sign-in");
               }}
@@ -286,7 +283,6 @@ export function Navigation({
                 ) : (
                   <Button
                     variant="ghost"
-                    size="icon"
                     onClick={() => {
                       router.push("/sign-in");
                     }}
