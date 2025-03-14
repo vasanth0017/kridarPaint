@@ -40,7 +40,7 @@ export default function Register() {
       setLoading(false);
     }
 
-    router.push("/create-account");
+    router.push("/sign-in");
   };
 
   return (

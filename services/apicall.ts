@@ -161,3 +161,7 @@ export const purchasedProduct = async ({ name, date, city, count }: any) => {
     count,
   });
 };
+//get purchased item
+export const getPurchasedProd = async () => {
+  return await Fetch.getJSON("/purchased-products/get-product");
+};

@@ -1,28 +1,26 @@
 import { AppSidebar } from "@/components/panel/appsidebar";
-import {
-  SidebarProvider,
-} from "@/components/ui/sidebar";
-import { getServerSession } from 'next-auth'
-import  {authOptions} from '@/pages/api/auth/[...nextauth]'
-import { redirect } from 'next/navigation'
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { redirect } from "next/navigation";
 import { getAccountDetails } from "@/services/apicall";
- 
+import { ProductsProvider } from "@/context/sale-prod-context";
 
 export default async function HomePage({ children }: any) {
-  const session:any = await getServerSession(authOptions)
-  const user = session?.user
-  const userId = user?.id
-   let userDetails: any = null;
-    try {
-      if (userId) {
-        const response = await getAccountDetails(userId);
-        userDetails = response?.[0] || null;
-      }
-    } catch (error) {
-      console.error("Error during fetching contract details:", error);
+  const session: any = await getServerSession(authOptions);
+  const user = session?.user;
+  const userId = user?.id;
+  let userDetails: any = null;
+  try {
+    if (userId) {
+      const response = await getAccountDetails(userId);
+      userDetails = response?.[0] || null;
     }
+  } catch (error) {
+    console.error("Error during fetching contract details:", error);
+  }
   if (!session) {
-    return redirect('/sign-in')
+    return redirect("/sign-in");
   }
   //   if (userDetails?.role !== "admin") {
   //   return (
@@ -37,7 +35,7 @@ export default async function HomePage({ children }: any) {
     <>
       <SidebarProvider>
         <AppSidebar session={userDetails} />
-              {children}
+        <ProductsProvider>{children}</ProductsProvider>
       </SidebarProvider>
     </>
   );

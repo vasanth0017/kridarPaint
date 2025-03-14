@@ -28,13 +28,13 @@ export default function Login() {
       const res = await signIn("credentials", {
         email,
         password,
-        redirect: true, 
+        redirect: true,
         callbackUrl: "/",
       });
 
       if (res?.error) throw new Error("Invalid credentials. Please try again.");
 
-      router.push("/");
+      router.push("/create-account");
     } catch (error) {
       setError(
         error instanceof Error ? error.message : "An unexpected error occurred."

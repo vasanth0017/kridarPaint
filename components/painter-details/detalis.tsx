@@ -9,7 +9,6 @@ import { Button } from "../ui/button";
 export default function Details() {
   const [selectedPainter, setSelectedPainter] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log("selectedPainter", selectedPainter);
   const userDetails = useUser();
   const painterDetails = userDetails.filter((user) => user.role === "Painter");
   const sortedPainters = [...painterDetails].sort((a, b) => {
