@@ -47,7 +47,6 @@ export default async function RootLayout({
 
           <Toaster
             position="top-center"
-            closeButton
             swipeDirections={["bottom"]}
           />
         </ThemeProvider>

@@ -106,7 +106,7 @@ const ProductCatalog = () => {
                         <span className="truncate">{category.name}</span>
                         <div className="flex items-center">
                           <span className="text-sm opacity-80">
-                            ({category.products.length})
+                            [ {category.products.length} ]
                           </span>
                           <ChevronRight className="ml-2" size={18} />
                         </div>

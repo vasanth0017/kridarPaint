@@ -29,7 +29,7 @@ export default async function RootLayout({
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation session={session} amount={totalAmount} role={userDetails?.role}/>
-      <main className="flex-grow pt-20 py-8  px-4 md:px-8 lg:px-16">
+      <main className="flex-grow pt-16">
         {children}
       </main>
       <Footer />

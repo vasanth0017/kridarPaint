@@ -63,14 +63,14 @@ const Admin = () => {
   // When product or city selection changes, update chart data
   useEffect(() => {
     if (!selectedProduct || !selectedCity) return;
-
+ 
     const filteredData = salesData.filter(
       (item) => item.name === selectedProduct && item.city === selectedCity
     );
 
     // Group by month and sum counts
-    const monthlyData = filteredData.reduce((acc, item) => {
-      const monthName = new Date(item.date).toLocaleString("default", {
+    const monthlyData = filteredData?.reduce((acc, item) => {
+      const monthName = new Date(item?.date).toLocaleString("default", {
         month: "long",
       });
       if (!acc[monthName]) {

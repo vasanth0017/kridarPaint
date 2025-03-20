@@ -55,6 +55,7 @@ export function Navigation({
 }) {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isSearchOpen, setIsSearchOpen] = React.useState(false);
+  
   const pathname = usePathname();
   const user = session?.user;
   const email = user?.email;
@@ -62,10 +63,21 @@ export function Navigation({
   const router = useRouter();
   React.useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      // before the header background appears
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > -50);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+  
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Initial check on mount
+    handleScroll();
+    
+    // Clean up event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
@@ -74,7 +86,7 @@ export function Navigation({
         "fixed top-0 w-full z-50 transition-all duration-300 ease-in-out",
         isScrolled
           ? "bg-background/90 backdrop-blur-sm border-b shadow-lg"
-          : "bg-background"
+          : "bg-transparent"
       )}
     >
       <nav className="container mx-auto px-4 md:px-8 lg:px-16 h-16 flex items-center justify-between">
@@ -298,3 +310,5 @@ export function Navigation({
     </header>
   );
 }
+
+

@@ -6,6 +6,7 @@ import Image from "next/image";
 import updateProd, { getProducts, saveProducts } from "@/services/apicall";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { toast } from "sonner";
 
 interface Product {
   id: string;
@@ -143,8 +144,27 @@ const ProductForm: React.FC = () => {
     setIsLoading(true);
 
     try {
-      await saveProducts(formData);
-
+      const cat_name = formData?.cat_name;
+      const name = formData?.name;
+      const amount = formData?.price;
+      const color = formData?.color;
+      const description = formData?.description;
+      const images = ["null"];
+      console.log(cat_name,
+        name,
+        amount,
+        color,
+        description,
+        images,)
+      await saveProducts({
+        cat_name,
+        name,
+        amount,
+        color,
+        description,
+        images,
+      });
+      toast.success("Saved Successfully")
       // Reset form after successful submission
       setFormData({
         cat_name: "",
@@ -160,11 +180,9 @@ const ProductForm: React.FC = () => {
 
       // Refetch products to update the list
       await fetchProducts();
-
-      alert("Product saved successfully!");
     } catch (error) {
       console.error("Error saving product:", error);
-      alert("Failed to save product");
+      toast.error("Failed to save product");
     } finally {
       setIsLoading(false);
     }
@@ -192,10 +210,10 @@ const ProductForm: React.FC = () => {
         cat_id,
         prod_id,
       });
-      alert("Product saved successfully!");
+      toast.success("Saved Successfully")
     } catch (error) {
       console.error("Error saving product:", error);
-      alert("Failed to save product");
+      toast.error("Failed to update product");
     } finally {
       setIsLoading(false);
     }

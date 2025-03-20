@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { getQr, redeemForm, updateQr } from "@/services/apicall";
 import { Loader, Mail, Phone, Sparkles, User } from "lucide-react";
 import { toast, Toaster } from "sonner";
@@ -10,6 +10,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { AllProduct } from "@/lib/productlist";
 import LuxuryCoin from "../amount/display";
+
 export default function BasicForm({ number, name, email, id, city }: any) {
   // State to manage form inputs
   const searchParams = useSearchParams();
@@ -18,7 +19,7 @@ export default function BasicForm({ number, name, email, id, city }: any) {
   const productData = AllProduct.find((item: any) => items === item?.value);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const router = useRouter()
   interface DataType {
     id?: string;
     used?: boolean;
@@ -87,6 +88,7 @@ export default function BasicForm({ number, name, email, id, city }: any) {
         count:1,
       });
       toast.success("Form submitted successfully!");
+      router.push("/dashboard")
       // Reset form after successful submission
       // setFormData({
       //   name: "",
@@ -142,7 +144,7 @@ export default function BasicForm({ number, name, email, id, city }: any) {
     <div className="max-w-md mx-auto p-6 my-8 bg-gradient-to-br  rounded-2xl shadow-lg border border-gray-100">
       {/* Header with glass effect */}
       <div className="mb-8 text-center p-4 bg-secondary bg-opacity-70 backdrop-blur-sm rounded-xl shadow-sm">
-        <h2 className="text-2xl font-bold mb-1 text-gray-800">
+        <h2 className="text-2xl font-bold mb-1">
           Claim Your Reward
         </h2>
 
@@ -166,9 +168,9 @@ export default function BasicForm({ number, name, email, id, city }: any) {
               name="name"
               value={formData?.name}
               readOnly
-              className="w-full px-4 py-3 pl-10 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
+              className="w-full px-4 py-3 pl-10  border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
             />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <User className="p-1" />
             </div>
           </div>
@@ -185,9 +187,9 @@ export default function BasicForm({ number, name, email, id, city }: any) {
               name="email"
               value={formData?.email}
               readOnly
-              className="w-full px-4 py-3 pl-10 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
+              className="w-full px-4 py-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
             />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <Mail className="p-1" />
             </div>
           </div>
@@ -204,9 +206,9 @@ export default function BasicForm({ number, name, email, id, city }: any) {
               name="phoneNumber"
               value={formData?.phoneNumber}
               readOnly
-              className="w-full px-4 py-3 pl-10 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
+              className="w-full px-4 py-3 pl-10 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition duration-200"
             />
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <Phone className="p-1" />
             </div>
           </div>

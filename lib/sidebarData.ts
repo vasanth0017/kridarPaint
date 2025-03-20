@@ -2,15 +2,14 @@ import {
   AudioWaveform,
   BookOpen,
   Bot,
-  Command,
   Frame,
-  GalleryVerticalEnd,
   Home,
   Map,
   NotebookTabs,
   PieChart,
   Settings2,
   SquareTerminal,
+  TicketCheck,
 } from "lucide-react";
 
 
@@ -70,7 +69,7 @@ export function sidebarData(session: any) {
             {
               title: "Redeem",
               url: "#",
-              icon: Settings2,
+              icon: TicketCheck,
               items: [
                 {
                   title: "Pending Redeem",
