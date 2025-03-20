@@ -5,6 +5,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { redirect } from "next/navigation";
 import { getAccountDetails } from "@/services/apicall";
 import { ProductsProvider } from "@/context/sale-prod-context";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 
 export default async function HomePage({ children }: any) {
   const session: any = await getServerSession(authOptions);
@@ -35,7 +36,16 @@ export default async function HomePage({ children }: any) {
     <>
       <SidebarProvider>
         <AppSidebar session={userDetails} />
-        <ProductsProvider>{children}</ProductsProvider>
+        <ProductsProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </ProductsProvider>
       </SidebarProvider>
     </>
   );

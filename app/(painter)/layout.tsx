@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { redirect } from "next/navigation";
 import { getAccountDetails } from "@/services/apicall";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 
 export default async function HomePage({ children }: any) {
   const session: any = await getServerSession(authOptions);
@@ -44,7 +45,14 @@ export default async function HomePage({ children }: any) {
     <>
       <SidebarProvider>
         <AppSidebar session={session} />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </SidebarProvider>
     </>
   );

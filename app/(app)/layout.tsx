@@ -3,6 +3,7 @@ import { Footer } from "@/components/panel/footer";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getAccountDetails } from "@/services/apicall";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 
 export default async function RootLayout({
   children,
@@ -28,9 +29,13 @@ export default async function RootLayout({
     ) || 0;
   return (
     <div className="min-h-screen flex flex-col">
-      <Navigation session={session} amount={totalAmount} role={userDetails?.role}/>
+      <Navigation
+        session={session}
+        amount={totalAmount}
+        role={userDetails?.role}
+      />
       <main className="flex-grow pt-16">
-        {children}
+          {children}
       </main>
       <Footer />
     </div>

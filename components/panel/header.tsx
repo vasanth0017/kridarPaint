@@ -32,7 +32,6 @@ import {
 } from "lucide-react";
 import { ModeToggle } from "@/components/theme/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
 import { signOut } from "next-auth/react";
 import LuxuryCoin from "../amount/display";
 
@@ -54,7 +53,6 @@ export function Navigation({
   role: any;
 }) {
   const [isScrolled, setIsScrolled] = React.useState(false);
-  const [isSearchOpen, setIsSearchOpen] = React.useState(false);
   
   const pathname = usePathname();
   const user = session?.user;
@@ -124,26 +122,6 @@ export function Navigation({
         <div className="flex items-center space-x-2 md:space-x-4 lg:space-x-6">
           {/* {coins} */}
           {role === "Painter" && <LuxuryCoin amount={amount} />}
-
-          {/* Search */}
-          {/* <div className="relative">
-            {isSearchOpen ? (
-              <Input
-                type="text"
-                placeholder="Search..."
-                className="w-48 md:w-64 transition-all duration-300"
-                onBlur={() => setIsSearchOpen(false)}
-              />
-            ) : (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsSearchOpen(true)}
-              >
-                <Search className="h-5 w-5" />
-              </Button>
-            )}
-          </div> */}
 
           {/* Theme Toggle */}
           <ModeToggle />

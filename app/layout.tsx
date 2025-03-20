@@ -24,9 +24,43 @@ const satoshiFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Kridar Paints",
-  description: "Natural paints for your home",
+  title: "Kridar Paints - Eco-Friendly Natural Paints for a Healthier Home",
+  description:
+    "Discover Kridar Paints, the ultimate choice for eco-friendly, toxin-free, and natural wall paints. Enhance your home with safe, sustainable, and vibrant colors.",
+  keywords: [
+    "natural paints",
+    "eco-friendly paints",
+    "toxin-free wall paints",
+    "sustainable home decor",
+    "organic wall coatings",
+    "healthy home painting",
+    "zero VOC paints",
+    "Kridar Paints",
+  ],
+  openGraph: {
+    title: "Kridar Paints - Eco-Friendly Natural Paints for a Healthier Home",
+    description:
+      "Upgrade your walls with Kridar Paints, crafted from natural ingredients for a safer and more sustainable home environment.",
+    url: "https://kridar-paints.vercel.app/", // Replace with actual URL
+    type: "website",
+    // images: [
+    //   {
+    //     url: "https://yourwebsite.com/og-image.jpg", // Replace with actual image URL
+    //     width: 1200,
+    //     height: 630,
+    //     alt: "Kridar Paints - Natural and Eco-Friendly Paints",
+    //   },
+    // ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kridar Paints - Eco-Friendly Natural Paints",
+    description:
+      "Breathe fresh with Kridar Paints! Our natural, toxin-free paints bring beauty and health to your home.",
+    // images: ["https://yourwebsite.com/twitter-image.jpg"], // Replace with actual image URL
+  },
 };
+
 
 export default async function RootLayout({
   children,
@@ -39,7 +73,7 @@ export default async function RootLayout({
       <body className={satoshiFont.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

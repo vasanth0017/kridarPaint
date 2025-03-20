@@ -161,12 +161,12 @@ export default function Home() {
             animate={{ opacity: heroInView ? 1 : 0, y: heroInView ? 0 : 20 }}
             transition={{ duration: 0.6, delay: 0.7 }}
           >
-            <Button className="bg-primary hover:bg-primary/90 text-black font-medium px-8 py-6 rounded-md">
+            <Button className="bg-white hover:bg-white/90 text-black font-medium px-8 py-6 rounded-md">
               Explore Collection
             </Button>
             <Button
               variant="outline"
-              className="border-zinc-700 hover:border-primary px-8 py-6 rounded-md"
+              className="bg-transparent hover:bg-neutral-800 hover:text-white border-zinc-700 hover:border-white px-8 py-6 rounded-md"
             >
               Our Process
             </Button>
@@ -243,7 +243,7 @@ export default function Home() {
           >
             <Button
               variant="outline"
-              className="border-zinc-700 hover:border-primary"
+              className="bg-transparent hover:bg-neutral-800 hover:text-white border-zinc-700 hover:border-white px-8 py-6 rounded-md"
             >
               View All Colors <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
@@ -448,7 +448,7 @@ export default function Home() {
             animate={{ opacity: ctaInView ? 1 : 0, y: ctaInView ? 0 : 30 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Button className="bg-primary hover:bg-primary/90 text-black font-medium px-10 py-6 rounded-md text-lg">
+            <Button className="bg-white hover:bg-white/90 text-black font-medium px-8 py-6 rounded-md">
               Schedule a Consultation
             </Button>
           </motion.div>
